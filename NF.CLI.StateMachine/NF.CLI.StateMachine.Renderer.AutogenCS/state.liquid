@@ -1,0 +1,16 @@
+namespace {{ fsm.name }}.AutoGen
+{
+    public partial class {{ state.name }} : {{ fsm.name }}Runner.BaseState
+    {
+        public enum E_Event
+        {
+           {%- for event in state.events -%}
+           {{ event.name }}
+           {%- endfor -%}
+        }
+
+        public {{ state.name }}() : base({{ fsm.name }}Runner.E_State.{{ state.name }})
+        {
+        }
+    }
+}

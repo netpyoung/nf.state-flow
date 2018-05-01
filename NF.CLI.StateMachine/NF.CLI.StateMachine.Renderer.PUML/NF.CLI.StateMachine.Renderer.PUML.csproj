@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NF.StateMachine\NF.StateMachine.Impl\NF.StateMachine.Impl.csproj" />
+    <ProjectReference Include="..\..\NF.StateMachine\NF.StateMachine.Interface\NF.StateMachine.Interface.csproj" />
+    <ProjectReference Include="..\NF.CLI.StateMachine.Parser\NF.CLI.StateMachine.Parser.csproj" />
+    <EmbeddedResource Include="puml.liquid"><LogicalName>puml.liquid</LogicalName></EmbeddedResource>
+    <PackageReference Include="DotLiquid" Version="2.0.262" />
+  </ItemGroup>
+
+</Project>

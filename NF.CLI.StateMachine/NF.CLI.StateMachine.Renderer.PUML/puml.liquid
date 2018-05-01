@@ -1,0 +1,16 @@
+@startuml
+
+note "{{ fsm.name }}" as note
+
+{%- for state in fsm.states %}
+state {{ state.name }}
+{%- endfor -%}
+
+[*] --> {{ fsm.states[0].name }}
+
+{%- for state in fsm.states %}
+    {%- for event in state.Events -%}
+        {{ state.name }} --> {{ event.next_state }} : {{ event.name }}({{ event.args | join: ', ' }})
+    {%- endfor -%}
+{%- endfor -%}
+@enduml

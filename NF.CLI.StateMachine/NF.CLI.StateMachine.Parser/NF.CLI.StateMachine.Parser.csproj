@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\NF.StateMachine\NF.StateMachine.Impl\NF.StateMachine.Impl.csproj" />
+    <ProjectReference Include="..\..\NF.StateMachine\NF.StateMachine.Interface\NF.StateMachine.Interface.csproj" />
+    <EmbeddedResource Include="defstate.ss"><LogicalName>defstate.ss</LogicalName></EmbeddedResource>
+    <PackageReference Include="schemy" Version="1.0.0" />
+    <PackageReference Include="DotLiquid" Version="2.0.262" />
+  </ItemGroup>
+
+</Project>

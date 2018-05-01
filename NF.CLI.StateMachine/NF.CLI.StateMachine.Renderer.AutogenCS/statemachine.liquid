@@ -1,0 +1,47 @@
+using NF.StateMachine.Impl;
+
+namespace {{ fsm.name }}.AutoGen
+{
+    public partial class {{ fsm.name }}Runner : StateMachineRunner<{{ fsm.name }}Runner.E_State>
+    {
+        public enum E_State
+        {
+            {%- for state in fsm.states -%}
+            {{ state.name }}, 
+            {%- endfor -%}
+        }
+    }
+
+    public partial class {{ fsm.name }}Runner : StateMachineRunner<{{ fsm.name }}Runner.E_State>
+    {
+        public abstract class BaseState : BaseState<{{ fsm.name }}Runner, E_State>
+        {
+            public BaseState(E_State id) : base(id)
+            {
+            }
+        }
+    }
+
+    public partial class {{ fsm.name }}Runner : StateMachineRunner<{{ fsm.name }}Runner.E_State>
+    {
+        public void Init()
+        {
+            {%- for state in fsm.states -%}
+            this.AddState(new {{ state.name }}()); 
+            {%- endfor -%}
+            this.SetState<{{ fsm.states[0].name }}>();
+        }
+
+        {%- for state in fsm.states %}
+        public void ProcessEvent({{ state.name }}.E_Event e, params object[] args)
+        {
+            {%- for event in state.events -%}
+            if (e == {{ state.name }}.E_Event.{{ event.name }})
+            {
+                base.SetState<{{ event.next_state }}>(args);
+            }
+            {%- endfor -%}
+        }
+        {%- endfor -%}
+    }
+}
