@@ -34,12 +34,22 @@ namespace NF.CLI.StateMachine.Parser
             using (TextReader reader = new StreamReader(stream))
             {
                 var res = interpreter.Evaluate(reader);
-                Console.WriteLine(res.Result);
+                if (res.Error != null)
+                {
+                    Console.Error.WriteLine(res.Error);
+                    return null;
+                }
             }
 
             using (TextReader reader = new StringReader(s))
             {
                 var res = interpreter.Evaluate(reader);
+                if (res.Error != null)
+                {
+                    Console.Error.WriteLine(res.Error);
+                    return null;
+                }
+
                 return res.Result as FSM;
             }
         }

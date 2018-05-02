@@ -1,20 +1,20 @@
-﻿using NF.StateMachine.Impl;
+using NF.StateMachine.Impl;
 
-namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class HelloFsmRunner : StateMachineRunner<HelloFsmRunner.E_State>
+    public partial class HelloFSMRunner : StateMachineRunner<HelloFSMRunner.E_State>
     {
         public enum E_State
         {
-            GenerateColor,
-            ValidateColor,
-            DisplayColor,
+            GenerateColor, 
+            ValidateColor, 
+            DisplayColor, 
         }
     }
 
-    public partial class HelloFsmRunner : StateMachineRunner<HelloFsmRunner.E_State>
+    public partial class HelloFSMRunner : StateMachineRunner<HelloFSMRunner.E_State>
     {
-        public abstract class BaseState : BaseState<HelloFsmRunner, E_State>
+        public abstract class BaseState : BaseState<HelloFSMRunner, E_State>
         {
             public BaseState(E_State id) : base(id)
             {
@@ -22,15 +22,16 @@ namespace HelloFsm.AutoGen
         }
     }
 
-    public partial class HelloFsmRunner : StateMachineRunner<HelloFsmRunner.E_State>
+    public partial class HelloFSMRunner : StateMachineRunner<HelloFSMRunner.E_State>
     {
         public void Init()
         {
-            this.AddState(new GenerateColor());
-            this.AddState(new ValidateColor());
-            this.AddState(new DisplayColor());
+            this.AddState(new GenerateColor()); 
+            this.AddState(new ValidateColor()); 
+            this.AddState(new DisplayColor()); 
             this.SetState<GenerateColor>();
         }
+
 
         public void ProcessEvent(GenerateColor.E_Event e, params object[] args)
         {
@@ -42,13 +43,13 @@ namespace HelloFsm.AutoGen
 
         public void ProcessEvent(ValidateColor.E_Event e, params object[] args)
         {
-            if (e == ValidateColor.E_Event.EvtValid)
-            {
-                base.SetState<DisplayColor>(args);
-            }
             if (e == ValidateColor.E_Event.EvtInvalid)
             {
                 base.SetState<GenerateColor>(args);
+            }
+            if (e == ValidateColor.E_Event.EvtValid)
+            {
+                base.SetState<DisplayColor>(args);
             }
         }
 

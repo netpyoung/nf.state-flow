@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class ValidateColor : HelloFsmRunner.BaseState
+    public partial class ValidateColor
     {
         public override void OnEnter(params object[] args)
         {

@@ -1,14 +1,14 @@
-﻿namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class ValidateColor : HelloFsmRunner.BaseState
+    public partial class ValidateColor : HelloFSMRunner.BaseState
     {
         public enum E_Event
         {
-            EvtInvalid,
-            EvtValid,
+           EvtInvalid,
+           EvtValid
         }
 
-        public ValidateColor() : base(HelloFsmRunner.E_State.ValidateColor)
+        public ValidateColor() : base(HelloFSMRunner.E_State.ValidateColor)
         {
         }
     }

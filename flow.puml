@@ -1,0 +1,13 @@
+@startuml
+
+
+actor -> (rake)
+
+(rake) --> (NF.CLI.StateMachine.Exe)
+(input.ss) --> (NF.CLI.StateMachine.Exe)
+
+(NF.CLI.StateMachine.Exe) --> (Unity) : .cs
+(NF.CLI.StateMachine.Exe) --> (uml) : .puml
+
+
+@enduml

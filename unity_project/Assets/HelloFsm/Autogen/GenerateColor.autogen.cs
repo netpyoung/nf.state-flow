@@ -1,13 +1,13 @@
-﻿namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class GenerateColor : HelloFsmRunner.BaseState
+    public partial class GenerateColor : HelloFSMRunner.BaseState
     {
         public enum E_Event
         {
-            EvtNext
+           EvtNext
         }
 
-        public GenerateColor() : base(HelloFsmRunner.E_State.GenerateColor)
+        public GenerateColor() : base(HelloFSMRunner.E_State.GenerateColor)
         {
         }
     }

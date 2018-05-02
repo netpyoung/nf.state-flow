@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class GenerateColor : HelloFsmRunner.BaseState
+    public partial class GenerateColor
     {
         public void Gen()
         {

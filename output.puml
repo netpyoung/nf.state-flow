@@ -1,0 +1,21 @@
+@startuml
+
+note "HelloFSM" as note
+
+
+state GenerateColor
+
+state ValidateColor
+
+state DisplayColor
+
+[*] --> GenerateColor
+
+
+        GenerateColor --> ValidateColor : EvtNext(color)
+
+        ValidateColor --> GenerateColor : EvtInvalid()
+        ValidateColor --> DisplayColor : EvtValid(color)
+
+        DisplayColor --> GenerateColor : EvtNext()
+@enduml

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using HelloFsm.AutoGen;
+using HelloFSM.AutoGen;
 using NF.StateMachine.Interface;
 
 public class example : MonoBehaviour {
 
-    HelloFsmRunner runner;
+    HelloFSMRunner runner;
 
     Text txt_state;
     Text txt_current;
@@ -22,7 +22,7 @@ public class example : MonoBehaviour {
         this.img_display = transform.Find(nameof(img_display)).GetComponent<Image>();
 
         this.btn_generate.onClick.AddListener(OnBtnGenerate);
-        HelloFsmRunner runner = this.runner = new HelloFsmRunner(this.img_generate, this.img_display);
+        HelloFSMRunner runner = this.runner = new HelloFSMRunner(this.img_generate, this.img_display);
         runner.OnStateChanged += OnStateChanged;
         runner.Init();
 	}

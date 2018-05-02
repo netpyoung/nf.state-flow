@@ -9,6 +9,7 @@
     <ProjectReference Include="..\NF.CLI.StateMachine.Parser\NF.CLI.StateMachine.Parser.csproj" />
     <ProjectReference Include="..\NF.CLI.StateMachine.Renderer.AutogenCS\NF.CLI.StateMachine.Renderer.AutogenCS.csproj" />
     <ProjectReference Include="..\NF.CLI.StateMachine.Renderer.PUML\NF.CLI.StateMachine.Renderer.PUML.csproj" />
+    <PackageReference Include="CommandLineParser" Version="2.2.1" /> 
   </ItemGroup>
 
 </Project>

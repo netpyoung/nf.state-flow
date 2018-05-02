@@ -1,14 +1,13 @@
 ﻿using UnityEngine.UI;
-using NF.StateMachine.Impl;
 
-namespace HelloFsm.AutoGen
+namespace HelloFSM.AutoGen
 {
-    public partial class HelloFsmRunner : StateMachineRunner<HelloFsmRunner.E_State>
+    public partial class HelloFSMRunner
     {
         public Image generate;
         public Image display;
 
-        public HelloFsmRunner(Image generate, Image display)
+        public HelloFSMRunner(Image generate, Image display)
         {
             this.generate = generate;
             this.display = display;
