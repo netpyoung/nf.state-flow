@@ -1,77 +1,84 @@
-(define (map fn ls)
+(define-macro first
+  (lambda args
+     `(car ,@args)))
+
+(define-macro rest
+  (lambda args
+     `(cdr ,@args)))
+	 
+(define-macro second
+  (lambda args
+     `(first (rest ,@args))))
+
+(define (map fn lst)
  (define loop
    (lambda (ls acc)
      (if (null? ls)
        acc
-       (loop (cdr ls)
-             (append acc (list (fn (car ls))))))))
- (loop ls '()))
+       (loop (rest ls)
+             (append acc (list (fn (first ls))))))))
+ (loop lst '()))
 
+(define-macro when
+  (lambda args
+   (define fst# (first args))
+   (define body# (rest args))
+    `(if ,fst#
+       ,@body#)))
 
-(define (apply-argument event ls)
- (define xx
-  (lambda (x)
-   (AddArgument event x)))
- (map xx ls))
-
+(define-macro foreach
+  (lambda args
+    (define item# (first args))
+    (define lst# (second args))
+    (define body# (rest (rest args)))
+    `(begin
+      (define __internal##
+       (lambda (ls)
+	     (when (not (null? ls))
+           (let ((,item# (first ls))
+                 (rst# (rest ls)))
+             ,@body#
+             (__internal## rst#)))))
+      (__internal## ,lst#))))
 
 (define-macro def-event
   (lambda args
-    (define x (name (car args)))
-    (define rst (cdr args))
+    (define event-name (name (first args)))
+    (define rst (rest args))
     (define args (map name (car rst)))
     (if (null? (cdr rst))
-      (define nextstate "")
-      (define nextstate (name (car (cdr rst)))))
+      (define next-state-name "")
+      (define next-state-name (name (car (cdr rst)))))
 
-    `(let ((event (define-event ,x)))
-       (apply-argument event ',args)
-       (ConnectNextState event ,nextstate)
+    `(let ((event (define-event ,event-name)))
+	   (foreach x ',args
+	     (AddArgument event x))
+       (ConnectNextState event ,next-state-name)
        event)))
 
-
-(define (apply-event state ls)
- (define xx
-  (lambda (x)
-   (AddEvent state x)))
- (map xx ls))
-
-; (def-state GenerateColor
-;   (EvtNext (color) ValidateColor)
-; )
 (define-macro def-state
    (lambda args
-     (define x (name (car args)))
-     (define bodies (cdr args))
+     (define state-name (name (first args)))
+     (define bodies (rest args))
      (define xxx (lambda (lst)
       (cons 'def-event lst)))
      (define xxxx (map xxx bodies))
-     `(let ((state (define-state ,x)))
-        (apply-event state (list ,@xxxx))
+     `(let ((state (define-state ,state-name)))
+        (foreach x (list ,@xxxx)
+		  (AddEvent state x))
         state)))
 
-(define (apply-state fsm ls)
- (define xx
-  (lambda (x)
-   (AddState fsm x)))
- (map xx ls))
-
-;(def-fsm HelloFSM
-;  (GenerateColor (EvtNext color) ValidateColor)
-;  (ValidateColor (EvtInvalid) GenerateColor)
-;  (ValidateColor (EvtValid color) DisplayColor)
-;
-;  (DisplayColor (EvtNext) GenerateColor)
-;  )
 (define-macro def-fsm
    (lambda args
-     (define x (name (car args)))
-     (define bodies (cdr args))
-     (define xxx (lambda (lst)
-      (let ((a (car lst))
-            (b (cdr lst)))
-        (cons 'def-state lst))))
+     (define fsm-name (name (first args)))
+     (define bodies (rest args))
+     (define xxx 
+      (lambda (lst)
+        (let ((fst (first lst))
+              (rst (rest lst)))
+          (cons 'def-state lst))))
      (define xxxx (map xxx bodies))
-     `(let ((fsm (define-fsm ,x)))
-        (apply-state fsm (list ,@xxxx))
+     `(let ((fsm (define-fsm ,fsm-name)))
+        (foreach x (list ,@xxxx)
+          (AddState fsm x))
         fsm)))
